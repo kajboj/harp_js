@@ -9,12 +9,16 @@ function HolesRow(props) {
   return (<tr>{holes}</tr>);
 }
 
+function noteToString(note) {
+  var c = notes.length
+  return notes[(c+(note%c))%c]
+}
+
 function NotesRow(props) {
   var holes = props.notes.map((note, index) => {
     var value
     if (note != null) {
-      var c = notes.length
-      value = notes[(c+(note%c))%c]
+      value = noteToString(note)
     } else {
       value = ""
     }
@@ -28,7 +32,7 @@ class Harp extends Component {
   render() {
     return (
       <div className="Harp">
-      harp in the key of {this.props.harp.key} goes here
+      harp key: {noteToString(this.props.harp.key)}
       <table>
         <tbody>
           <NotesRow notes={this.props.harp.blowBend2}/>
